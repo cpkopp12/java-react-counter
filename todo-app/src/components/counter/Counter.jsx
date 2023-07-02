@@ -1,24 +1,30 @@
 import { useState } from 'react';
+
 import './counter.css';
+import CounterButton from './CounterButton';
 
 export default function Counter() {
-
     const [count, setCount] = useState(0);
 
-    function incrementCounterFunction() {
-        
-        setCount(count + 1);
-        console.log(count);
+    function incrementCounterParentFunction(by) {
+        setCount(count + by);
+    }
+
+    function decrementCounterParentFunction(by) {
+        setCount(count - by);
+    }
+
+    function resetCounter() {
+        setCount(0);
     }
 
     return (
-        <div className="Counter">
-            <span className="count">{ count }</span>
-            <div>
-                <button className="counterButton" 
-                    onClick={incrementCounterFunction}
-                >+1</button>
-            </div>
-        </div>
+        <>
+            <span className="counter">{count}</span>
+            <CounterButton incrementParentFunction={incrementCounterParentFunction} decrementParentFunction={decrementCounterParentFunction} />
+            <CounterButton by={2} incrementParentFunction={incrementCounterParentFunction} decrementParentFunction={decrementCounterParentFunction} />
+            <CounterButton by={5} incrementParentFunction={incrementCounterParentFunction} decrementParentFunction={decrementCounterParentFunction} />
+            <button className="resetButton" onClick={resetCounter}>reset</button>
+        </>
     )
 }
